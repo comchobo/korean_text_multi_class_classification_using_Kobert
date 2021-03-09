@@ -16,4 +16,4 @@ Sentence|Emotion<br>
 방탈죄송합니다ㅠ|슬픔<br>
 ...<br>
 <br>
-https://colab.research.google.com/drive/1tIf0Ugdqg4qT7gcxia3tL7und64Rv1dP#scrollTo=c5KHb6RkbHdj 이곳의 코드를 참고하였습니다. 훈련시간은 1080기준 10분가량입니다.
+https://parksrazor.tistory.com/231 이곳의 코드를 참고하였습니다. 훈련시간은 1080기준 15분가량입니다.
