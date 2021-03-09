@@ -10,8 +10,9 @@ tokenizer = KoBertTokenizer.from_pretrained('monologg/kobert') # monologg/distil
 # 0. HyperParameter ------------------
 
 maxlen = 80
-batch_size = 48
-epochs = 2
+batch_size_HP = 48
+epochs_HP = 2
+classes = 5
 
 # 1. data preprocessing ----------------
 
@@ -85,12 +86,12 @@ opt = tfa.optimizers.RectifiedAdam(lr=5.0e-5, total_steps = 2344*4, warmup_propo
 sentiment_drop = tf.keras.layers.Dropout(0.15)(bert_outputs)
 sentiment_drop=tf.keras.layers.Dense(35, activation='relu', kernel_initializer=tf.keras.initializers.
                                         TruncatedNormal(stddev=0.02))(sentiment_drop)
-sentiment_first = tf.keras.layers.Dense(5, activation='softmax')(sentiment_drop)
+sentiment_first = tf.keras.layers.Dense(units=classes, activation='softmax')(sentiment_drop)
 sentiment_model = tf.keras.Model([token_inputs, mask_inputs, segment_inputs], sentiment_first)
 sentiment_model.compile(optimizer=opt, loss=tf.keras.losses.SparseCategoricalCrossentropy(), metrics = ['accuracy'])
 sentiment_model.summary()
 
-sentiment_model.fit(X_train, Y_train, epochs=3, batch_size=48, validation_data=(X_val, Y_val))
+sentiment_model.fit(X_train, Y_train, epochs=epochs_HP, batch_size=batch_size_HP, validation_data=(X_val, Y_val))
 
 sentiment_model.save_weights('./kobert_classifier')
 
